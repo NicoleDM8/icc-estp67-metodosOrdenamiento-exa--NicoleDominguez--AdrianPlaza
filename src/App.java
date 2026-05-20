@@ -1,3 +1,4 @@
+import controllers.BrandController;
 import models.Brand;
 import models.CarModel;
 import models.CarYear;
@@ -6,7 +7,42 @@ public class App {
         public static void main(String[] args) throws Exception {
                 System.out.println("Examen interciclo de Estructuras de Datos");
                 System.out.println("====Configurar studente.env====");
+                System.out.println();
 
+                Brand[] brands = createBrands();
+                BrandController controller = new BrandController();
+
+                System.out.println("Original:");
+                for (Brand b : brands) {
+                        System.out.println(b.getBrandName() + " - Años válidos: " + b.getTotalValidYears());
+                        
+                }
+                System.out.println();
+
+                brands = controller.sortSelectionDesc(brands);
+
+                System.out.println("Ordenado por Selecion sort descendente");
+                for (Brand b : brands) {
+                        System.out.println(b.getBrandName() + " - Años válidos: " + b.getTotalValidYears());
+                }
+                System.out.println();
+
+                System.out.println("Buscar marca con 8 años válidos que se ordenaron de mayor a menor:");
+                Brand encontrada1 = controller.binarySearchByValidYears(brands, 8, false);
+                if (encontrada1 != null) {
+                        System.out.println("Encontrada: Marca: " + encontrada1.getBrandName() + ", Total de años válidos: " + encontrada1.getTotalValidYears());
+                } else {
+                        System.out.println("No encontrada");
+                }
+                System.out.println();
+
+                System.out.println("Buscar marca con 10 años válidos que se ordenaron de mayor a menor:");
+                Brand encontrada2 = controller.binarySearchByValidYears(brands, 10, false);
+                if (encontrada2 != null) {
+                        System.out.println("Encontrada: Marca: " + encontrada2.getBrandName() + ", Total de años válidos: " + encontrada2.getTotalValidYears());
+                } else {
+                        System.out.println("No encontrada");
+                }
         }
 
         /**
